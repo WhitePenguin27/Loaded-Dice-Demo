@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOADED DICE</title>
+<link rel="icon" type="image/png" href="assets/icon_die.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "cannon-es": "https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== A/B. 메인 화면 ===== -->
+  <section id="screen-main" class="screen">
+    <div class="main-inner">
+      <h1 class="game-title">LOADED<br>DICE</h1>
+      <p class="subtitle">사기 주사위 덱빌딩 로그라이크</p>
+      <nav class="main-menu">
+        <button class="btn big" id="btn-start">시작하기</button>
+        <button class="btn big" id="btn-continue" hidden>이어하기</button>
+        <button class="btn big" id="btn-tutorial">튜토리얼</button>
+        <button class="btn big" id="btn-collection">도감</button>
+      </nav>
+      <p class="tip" id="main-tip"></p>
+    </div>
+    <div class="version">v0.1.0 (web)</div>
+  </section>
+
+  <!-- ===== D. 월드 룰 선택 ===== -->
+  <section id="screen-world" class="screen" hidden>
+    <h2 class="screen-title">월드 룰 선택</h2>
+    <div class="world-carousel">
+      <button class="btn nav" id="world-prev">◀</button>
+      <div class="world-card-wrap">
+        <div id="world-card-left" class="world-card side"></div>
+        <div id="world-card" class="world-card center"></div>
+        <div id="world-card-right" class="world-card side"></div>
+      </div>
+      <button class="btn nav" id="world-next">▶</button>
+    </div>
+    <div id="world-desc" class="world-desc panel"></div>
+    <div class="row center-row">
+      <button class="btn big primary" id="btn-world-start">시작하기</button>
+      <button class="btn big" id="btn-world-back">돌아가기</button>
+    </div>
+  </section>
+
+  <!-- ===== E/F/H. 게임 공통 레이아웃 ===== -->
+  <section id="screen-game" class="screen game-layout" hidden>
+    <header id="topbar">
+      <div class="topbar-left">
+        <span id="tb-stage" class="tb-chip">1 Stage</span>
+        <span id="tb-gold" class="tb-chip gold">0$</span>
+      </div>
+      <div id="tb-wilds" class="tb-wilds"></div>
+      <div class="topbar-right">
+        <button class="btn small" id="btn-giveup">포기하기</button>
+      </div>
+    </header>
+
+    <div class="game-body">
+      <aside id="scoreboard" class="panel">
+        <div id="sb-rules"></div>
+        <div id="sb-target"></div>
+        <table id="sb-table"></table>
+        <div id="sb-counters"></div>
+      </aside>
+
+      <main id="game-main">
+        <!-- 로컬 룰 선택 -->
+        <div id="panel-local" class="game-panel" hidden>
+          <h3 class="panel-title">로컬 룰 선택 — 이번 판의 패널티를 고르시오</h3>
+          <div id="local-cards" class="local-cards"></div>
+        </div>
+
+        <!-- 요트 플레이 -->
+        <div id="panel-play" class="game-panel" hidden>
+          <div id="dice-3d">
+            <div class="zone-caption top">배치 칸</div>
+            <div class="zone-caption bottom">굴림 결과</div>
+          </div>
+          <div id="play-bottom">
+            <div id="play-hint" class="play-hint"></div>
+            <button class="btn roll" id="btn-roll">굴리기</button>
+          </div>
+        </div>
+
+        <!-- 상점 -->
+        <div id="panel-shop" class="game-panel" hidden>
+          <h3 class="panel-title">SHOP — 가판대</h3>
+          <div id="shop-items" class="shop-items"></div>
+          <h3 class="panel-title">소지 주사위 / 리드미노 배치</h3>
+          <div id="shop-dice" class="shop-dice"></div>
+          <div class="row center-row">
+            <button class="btn" id="btn-minobag">리드미노 보관함</button>
+            <button class="btn big primary" id="btn-nextstage">Next Stage ▶</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <footer id="itembox">
+      <div id="ib-dice"></div>
+      <div id="ib-minos"></div>
+    </footer>
+  </section>
+
+  <!-- 모달/오버레이 -->
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
