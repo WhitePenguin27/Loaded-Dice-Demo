@@ -4,7 +4,7 @@
    ============================================================ */
 @font-face {
   font-family: 'Cafe24PROUP';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2305@1.1/Cafe24PROUP.woff2') format('woff2');
+  src: url('../assets/fonts/Cafe24PROUP.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
