@@ -165,9 +165,32 @@ hr { border: none; border-top: 2px solid rgba(0,0,0,.25); margin: 6px 0; }
 #sb-table tr.sec-combo { background: rgba(78, 100, 142, .08); }
 #sb-table td.score { text-align: right; width: 56px; font-weight: bold; }
 #sb-table tr.open { cursor: pointer; }
-#sb-table tr.open:hover { background: rgba(85,178,79,.25); }
+#sb-table tr.open td { animation: rowGlow 1.6s infinite; }
+@keyframes rowGlow {
+  0%, 100% { background: rgba(232, 200, 74, .07); }
+  50% { background: rgba(232, 200, 74, .28); }
+}
+#sb-table tr.open:hover td { animation: none; background: var(--gold); color: var(--ink); }
+#sb-table tr.open:hover .preview { color: #1d4a1a; opacity: 1; }
 #sb-table tr.filled { color: #555; background: rgba(0,0,0,.05); }
-#sb-table .preview { color: #3a7a35; opacity: .8; }
+#sb-table .preview { color: #3a7a35; opacity: .85; font-weight: bold; }
+
+/* 점수 등록 유도 (UX) */
+#sb-cta {
+  padding: 6px 8px; text-align: center;
+  font-size: 12px; font-weight: bold; color: var(--ink);
+  background: var(--gold); border: 2px solid var(--wood-dark);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, .35);
+  animation: ctaPulse 1.2s infinite;
+}
+#sb-cta img.icon { width: 18px; height: 18px; }
+@keyframes ctaPulse { 50% { filter: brightness(.8); } }
+.reg-tag {
+  display: none; margin-left: 5px; padding: 0 4px;
+  font-size: 10px; background: #6b2f1e; color: #ffe9b0;
+  border: 1px solid var(--wood-dark);
+}
+#sb-table tr.open:hover .reg-tag { display: inline-block; }
 #sb-table .bonus-row { color: #7a5a1e; }
 #sb-table .total-row { font-weight: bold; border-top: 2px solid var(--wood-dark); }
 #sb-counters { display: flex; gap: 10px; }

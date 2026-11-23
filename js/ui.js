@@ -260,6 +260,10 @@ function renderScoreboard(interactive) {
   table.innerHTML = '';
   const bonus = bonusState(run);
   const canRegister = interactive && run.rolled && !rolling;
+  // 점수 등록 유도 배너: 굴림 직후 어디를 눌러야 하는지 안내
+  const cta = $('#sb-cta');
+  cta.hidden = !canRegister;
+  if (canRegister) cta.innerHTML = `${icon('hand')} 족보를 <b>클릭</b>하면 점수 등록!`;
   const sheetRows = run.sheet.length ? run.sheet : BASE_SHEET.map(id => ({ catId: id, score: null }));
   // 구분된 레이아웃: 숫자 족보(Ace~Bonus) / 조합 족보(Choice~Yacht)
   const numberRows = sheetRows.filter(r => CAT[r.catId].type === 'number');
@@ -272,15 +276,17 @@ function renderScoreboard(interactive) {
   };
   const addCatRow = (row, cls) => {
     const cat = CAT[row.catId];
+    const open = row.score == null && canRegister;
     const tr = h('tr', `${cls} ` + (row.score != null ? 'filled' : (canRegister ? 'open' : '')));
-    tr.dataset.tip = `<b>${cat.name}</b><br>${cat.desc}`;
+    tr.dataset.tip = `<b>${cat.name}</b><br>${cat.desc}` +
+      (open ? '<br><span class="good">클릭하면 이 족보로 점수가 등록됩니다</span>' : '');
     let scoreCell;
     if (row.score != null) scoreCell = `${row.score}`;
     else if (canRegister) {
       const pv = previewFor(row.catId);
       scoreCell = `<span class="preview">${pv ? pv.final : ''}</span>`;
     } else scoreCell = '';
-    tr.innerHTML = `<td>${cat.name}</td><td class="score">${scoreCell}</td>`;
+    tr.innerHTML = `<td>${cat.name}${open ? '<span class="reg-tag">등록!</span>' : ''}</td><td class="score">${scoreCell}</td>`;
     if (row.score == null && canRegister) {
       tr.onclick = () => registerScore(row.catId);
     }
