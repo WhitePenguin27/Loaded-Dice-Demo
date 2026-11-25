@@ -356,7 +356,7 @@ export const MAX_STAGE = 10;
 export const BASE_REGS = 6;      // 스테이지당 등록(점수 기입) 횟수
 export const BASE_REROLLS = 10;  // 스테이지당 재굴림 횟수
 export const stageTarget = (n) => Math.round((70 * Math.pow(1.42, n - 1)) / 5) * 5;
-// 1~10: 70,100,140,200,285,405,575,815,1160,1645
+// 1~10: 70,100,140,200,285,405,575,815,1155,1645
 
 // 보상 공식: 로컬 룰 배정 골드 + floor(log2(stage)) + 남은 등록횟수
 export const clearGold = (localRule, stage) =>
